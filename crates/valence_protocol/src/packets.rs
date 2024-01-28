@@ -196,10 +196,6 @@ pub mod play {
     pub use particle_s2c::ParticleS2c;
     pub mod pick_from_inventory_c2s;
     pub use pick_from_inventory_c2s::PickFromInventoryC2s;
-    pub mod play_ping_s2c;
-    pub use play_ping_s2c::PlayPingS2c;
-    pub mod play_pong_c2s;
-    pub use play_pong_c2s::PlayPongC2s;
     pub mod play_sound_from_entity_s2c;
     pub use play_sound_from_entity_s2c::PlaySoundFromEntityS2c;
     pub mod play_sound_s2c;
@@ -232,8 +228,6 @@ pub mod play {
     pub use player_session_c2s::PlayerSessionC2s;
     pub mod player_spawn_position_s2c;
     pub use player_spawn_position_s2c::PlayerSpawnPositionS2c;
-    pub mod player_spawn_s2c;
-    pub use player_spawn_s2c::PlayerSpawnS2c;
     pub mod position_and_on_ground_c2s;
     pub use position_and_on_ground_c2s::PositionAndOnGroundC2s;
     pub mod profileless_chat_message_s2c;

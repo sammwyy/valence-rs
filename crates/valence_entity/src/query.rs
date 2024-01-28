@@ -8,7 +8,7 @@ use valence_protocol::encode::WritePacket;
 use valence_protocol::packets::play::{
     EntityAnimationS2c, EntityAttributesS2c, EntityPositionS2c, EntitySetHeadYawS2c,
     EntitySpawnS2c, EntityStatusS2c, EntityTrackerUpdateS2c, EntityVelocityUpdateS2c,
-    ExperienceOrbSpawnS2c, MoveRelativeS2c, PlayerSpawnS2c, RotateAndMoveRelativeS2c, RotateS2c,
+    ExperienceOrbSpawnS2c, MoveRelativeS2c, RotateAndMoveRelativeS2c, RotateS2c,
 };
 use valence_protocol::var_int::VarInt;
 use valence_protocol::ByteAngle;
@@ -49,18 +49,16 @@ impl EntityInitQueryItem<'_> {
                 });
             }
             EntityKind::PLAYER => {
-                writer.write_packet(&PlayerSpawnS2c {
+                writer.write_packet(&EntitySpawnS2c {
                     entity_id: self.entity_id.get().into(),
-                    player_uuid: self.uuid.0,
+                    object_uuid: self.uuid.0,
                     position: pos,
                     yaw: ByteAngle::from_degrees(self.look.yaw),
                     pitch: ByteAngle::from_degrees(self.look.pitch),
-                });
-
-                // Player spawn packet doesn't include head yaw for some reason.
-                writer.write_packet(&EntitySetHeadYawS2c {
-                    entity_id: self.entity_id.get().into(),
+                    data: self.object_data.0.into(),
                     head_yaw: ByteAngle::from_degrees(self.head_yaw.0),
+                    kind: self.kind.get().into(),
+                    velocity: self.velocity.to_packet_units(),
                 });
             }
             _ => writer.write_packet(&EntitySpawnS2c {

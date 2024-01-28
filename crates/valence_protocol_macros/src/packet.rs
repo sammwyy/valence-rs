@@ -1,6 +1,6 @@
 use heck::ToShoutySnakeCase;
 use proc_macro2::{Ident, Span, TokenStream};
-use quote::quote;
+use quote::{quote, ToTokens};
 use syn::spanned::Spanned;
 use syn::{parse2, parse_quote, Attribute, DeriveInput, Error, Expr, LitInt, LitStr, Result};
 
@@ -19,9 +19,18 @@ pub(super) fn derive_packet(item: TokenStream) -> Result<TokenStream> {
         name.to_string()
     };
 
+    let state = packet_attr
+        .state
+        .unwrap_or_else(|| parse_quote!(::valence_protocol::PacketState::Play));
+
+    let state_str = state.to_token_stream().to_string();
+    let state_str = state_str.split("State").last().unwrap();
+
+    let fixed_path_str = format!("{}::{}", state_str, name_str);
+
     let packet_id: Expr = match packet_attr.id {
         Some(expr) => expr,
-        None => match syn::parse_str::<Ident>(&name_str.to_shouty_snake_case()) {
+        None => match syn::parse_str::<Ident>(&fixed_path_str.to_shouty_snake_case()) {
             Ok(ident) => parse_quote!(::valence_protocol::packet_id::#ident),
             Err(_) => {
                 return Err(Error::new(
@@ -48,10 +57,6 @@ pub(super) fn derive_packet(item: TokenStream) -> Result<TokenStream> {
             "missing `side = PacketSide::...` value from `packet` attribute",
         ));
     };
-
-    let state = packet_attr
-        .state
-        .unwrap_or_else(|| parse_quote!(::valence_protocol::PacketState::Play));
 
     Ok(quote! {
         impl #impl_generics ::valence_protocol::__private::Packet for #name #ty_generics

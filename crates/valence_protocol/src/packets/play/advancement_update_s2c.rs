@@ -12,7 +12,7 @@ pub type AdvancementUpdateS2c<'a> =
     GenericAdvancementUpdateS2c<'a, (Ident<Cow<'a, str>>, Advancement<'a, ItemStack>)>;
 
 #[derive(Clone, Debug, Encode, Decode, Packet)]
-#[packet(id = packet_id::ADVANCEMENT_UPDATE_S2C)]
+#[packet(id = packet_id::PLAY_ADVANCEMENT_UPDATE_S2C)]
 pub struct GenericAdvancementUpdateS2c<'a, AM: 'a> {
     pub reset: bool,
     pub advancement_mapping: Vec<AM>,
