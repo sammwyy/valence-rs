@@ -39,6 +39,9 @@ impl View for Filter {
                 if draw_packet_list(ui, state, PacketState::Status) > 0 {
                     ui.separator();
                 }
+                if draw_packet_list(ui, state, PacketState::Configuration) > 0 {
+                    ui.separator();
+                }
                 if draw_packet_list(ui, state, PacketState::Login) > 0 {
                     ui.separator();
                 }
@@ -75,6 +78,7 @@ fn draw_packet_list(ui: &mut Ui, state: &mut SharedState, packet_state: PacketSt
         PacketState::Handshaking => "Handshaking",
         PacketState::Status => "Status",
         PacketState::Login => "Login",
+        PacketState::Configuration => "Configuration",
         PacketState::Play => "Play",
     };
 

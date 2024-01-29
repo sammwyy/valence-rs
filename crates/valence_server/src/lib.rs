@@ -24,6 +24,7 @@ pub mod brand;
 mod chunk_view;
 pub mod client;
 pub mod client_command;
+pub mod client_pre_settings;
 pub mod client_settings;
 pub mod custom_payload;
 pub mod event_loop;

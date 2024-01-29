@@ -61,6 +61,7 @@ use valence_server::abilities::AbilitiesPlugin;
 use valence_server::action::ActionPlugin;
 use valence_server::client::ClientPlugin;
 use valence_server::client_command::ClientCommandPlugin;
+use valence_server::client_pre_settings::ClientPreSettingsPlugin;
 use valence_server::client_settings::ClientSettingsPlugin;
 use valence_server::custom_payload::CustomPayloadPlugin;
 use valence_server::entity::hitbox::HitboxPlugin;
@@ -180,6 +181,7 @@ impl PluginGroup for DefaultPlugins {
             .add(LayerPlugin)
             .add(ClientPlugin)
             .add(EventLoopPlugin)
+            .add(ClientPreSettingsPlugin)
             .add(MovementPlugin)
             .add(ClientCommandPlugin)
             .add(KeepalivePlugin)

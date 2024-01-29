@@ -22,6 +22,7 @@ use valence_entity::{
     ClearEntityChangesSet, EntityId, EntityStatus, OldPosition, Position, Velocity,
 };
 use valence_math::{DVec3, Vec3};
+use valence_protocol::client_state::ClientState;
 use valence_protocol::encode::{PacketEncoder, WritePacket};
 use valence_protocol::packets::play::chunk_biome_data_s2c::ChunkBiome;
 use valence_protocol::packets::play::game_state_change_s2c::GameEventKind;
@@ -36,7 +37,7 @@ use valence_protocol::profile::Property;
 use valence_protocol::sound::{Sound, SoundCategory, SoundId};
 use valence_protocol::text::{IntoText, Text};
 use valence_protocol::var_int::VarInt;
-use valence_protocol::{BlockPos, ChunkPos, Encode, GameMode, Packet};
+use valence_protocol::{BlockPos, ChunkPos, Encode, GameMode, Packet, PacketState};
 use valence_registry::RegistrySet;
 use valence_server_common::{Despawned, UniqueId};
 
@@ -150,6 +151,7 @@ impl ClientBundle {
             client: Client {
                 conn: args.conn,
                 enc: args.enc,
+                state: ClientState::Configuration,
             },
             settings: Default::default(),
             entity_remove_buf: Default::default(),
@@ -219,6 +221,7 @@ pub struct ClientMarker;
 pub struct Client {
     conn: Box<dyn ClientConnection>,
     pub(crate) enc: PacketEncoder,
+    pub state: ClientState,
 }
 
 /// Represents the bidirectional packet channel between the server and a client

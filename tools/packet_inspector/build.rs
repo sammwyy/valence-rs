@@ -65,6 +65,7 @@ fn write_packets(packets: &Vec<Packet>) -> anyhow::Result<()> {
         let state = match packet.state.as_str() {
             "handshaking" => quote! { valence_protocol::PacketState::Handshaking },
             "status" => quote! { valence_protocol::PacketState::Status },
+            "configuration" => quote! { valence_protocol::PacketState::Configuration },
             "login" => quote! { valence_protocol::PacketState::Login },
             "play" => quote! { valence_protocol::PacketState::Play },
             _ => unreachable!(),
@@ -110,6 +111,7 @@ fn write_transformer(packets: &[Packet]) -> anyhow::Result<()> {
             "handshaking" => "Handshaking".to_string(),
             "status" => "Status".to_string(),
             "login" => "Login".to_string(),
+            "configuration" => "Configuration".to_string(),
             "play" => "Play".to_string(),
             _ => panic!("Invalid state"),
         };

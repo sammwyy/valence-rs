@@ -37,6 +37,7 @@ mod bounded;
 mod byte_angle;
 pub mod chunk_pos;
 pub mod chunk_section_pos;
+pub mod client_state;
 pub mod decode;
 mod difficulty;
 mod direction;
@@ -310,6 +311,7 @@ pub enum PacketState {
     Handshaking,
     Status,
     Login,
+    Configuration,
     Play,
 }
 

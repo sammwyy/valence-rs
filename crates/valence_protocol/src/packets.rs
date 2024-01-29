@@ -144,8 +144,6 @@ pub mod play {
     pub use experience_orb_spawn_s2c::ExperienceOrbSpawnS2c;
     pub mod explosion_s2c;
     pub use explosion_s2c::ExplosionS2c;
-    pub mod features_s2c;
-    pub use features_s2c::FeaturesS2c;
     pub mod full_c2s;
     pub use full_c2s::FullC2s;
     pub mod game_join_s2c;
@@ -357,4 +355,11 @@ pub mod status {
     pub use query_request_c2s::QueryRequestC2s;
     pub mod query_response_s2c;
     pub use query_response_s2c::QueryResponseS2c;
+}
+
+pub mod configuration {
+    pub mod client_options_c2s;
+    pub use client_options_c2s::ClientOptionsC2s;
+    pub mod features_s2c;
+    pub use features_s2c::FeaturesS2c;
 }

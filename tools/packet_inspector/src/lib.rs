@@ -241,7 +241,7 @@ impl Proxy {
                     }
 
                     if extrapolate_packet::<LoginSuccessS2c>(&packet).is_some() {
-                        *state_lock.write().await = PacketState::Play;
+                        *state_lock.write().await = PacketState::Configuration;
                     }
                 }
 
